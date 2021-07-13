@@ -1,0 +1,60 @@
+<%- include ('../partials/header.ejs') %> <%- include ('../partials/navbar.ejs')
+%>
+<div class="container">
+  <hr />
+  <h2>Histórico</h2>
+  <hr />
+  <form action="/search" method="POST">
+    <input name="start" class="form-control mb-3" type="date" />
+    <input name="end" class="form-control mb-3" type="date" />
+    <div class="row-space-between">
+      <button class="btn btn-success btn-block col-2" type="submit">
+        Filtrar
+      </button>
+    </div>
+  </form>
+  <hr />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Destino</th>
+        <th>Valor</th>
+        <th>Categoria</th>
+        <th>Comentário</th>
+        <th>Data</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% transactions.forEach((transaction) => { %>
+      <tr>
+        <% if(transaction.to) {%>
+        <th><%= transaction.to %></th>
+        <%}else{%>
+        <th>Destino não informado</th>
+        <%}%>
+        <th id="<%=transaction.id%>"><%= transaction.value %></th>
+        <% if(transaction.category) {%>
+        <th><%= transaction.category.title %></th>
+        <%}else{%>
+        <th>Sem Categoria</th>
+        <%}%> <% if(transaction.comment) {%>
+        <th><%= transaction.comment %></th>
+        <%}else{%>
+        <th>Sem comentário</th>
+        <%}%>
+        <th><%= transaction.createdAt %></th>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <form action="/export" method="POST">
+    <input name="start" class="form-control mb-3" type="date" />
+    <input name="end" class="form-control mb-3" type="date" />
+    <div class="row-space-between">
+      <button class="btn btn-success btn-block col-2" type="submit">
+        Exportar
+      </button>
+    </div>
+  </form>
+</div>
+<%- include ('../partials/footer.ejs') -%>

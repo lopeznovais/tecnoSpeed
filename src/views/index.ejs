@@ -1,0 +1,27 @@
+<%- include ('./partials/header.ejs') %> <%- include ('./partials/navbar.ejs')
+%>
+
+<div class="container">
+  <hr />
+  <div class="card mt-5">
+    <div class="card-header">
+      <h2>Carteira <%= user.email %></h2>
+    </div>
+    <div class="card-body">
+      <h3 id="balance"></h3>
+      <a href="/transactions/new" class="btn btn-success btn-block mt-2">
+        Nova Transação
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const userBalance = <%= user.balance %>;
+  balance.innerText = userBalance.toLocaleString("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  });
+</script>
+
+<%- include ('./partials/footer.ejs') %>
